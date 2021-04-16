@@ -1,3 +1,3 @@
 module.exports = {
-    MongoURI: '[YOUR CONNECTION STRING HERE]'
+    MongoURI: 'mongodb://localhost:27017/'
 }

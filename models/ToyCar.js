@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const ToyCarSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: false
   },
   color: {
       type: String,
-      required: true
+      required: false
   },
   year: {
       type: Date

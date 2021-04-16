@@ -22,7 +22,8 @@ const db = require('./config/keys').MongoURI;
 // const db = process.env.MONGO_URI;
 
 // Connect to MongoDB
-if (db !== '[YOUR CONNECTION STRING HERE]') {
+console.log("try to con")
+if (db == 'mongodb://localhost:27017/') {
     mongoose
       .connect(
         db,
@@ -55,6 +56,7 @@ app.use(passport.session());
 
 // Routes
 app.use('/', require('./routes/index.js'));
+app.use('/api', require('./api/api'));
 
 
 const PORT = process.env.PORT || 8000;

@@ -21,7 +21,9 @@ exports.getReports = async (req, res, next) => {
 exports.getReportsByFilter = async (req, res, next) => {
     try {
         const report = await Report.find(req.body).exec();
-        console.log("req.p",req.body)
+        //const report = await Report.find().$where('this.firstReportTable[0].kat1 != "фыв"').exec();
+       
+        console.log("res",report)
         return res.status(200).json({
             success: true,
             count: report.length,

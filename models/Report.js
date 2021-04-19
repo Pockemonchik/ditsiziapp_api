@@ -1,21 +1,262 @@
 const mongoose = require('mongoose');
 
 const ReportSchema = new mongoose.Schema({
-    voa: {
-        type: String,
-        required: false
+    "type": "object",
+    "id": {
+        "type": "Number"
     },
-    year: {
-        type: Date
+    "VOA": {
+        "type": "string"
     },
-    table1: [
-        {
-            par1: String,
-            par2: String,
-            par3: String
-        }
-    ],
-
+    "period": {
+        "type": "Number"
+    },
+    "firstReportTable": {
+        "type": "array",
+        "items": [
+            {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "ObjInf": {
+                        "type": "string"
+                    },
+                    "kat1": {
+                        "type": "string"
+                    },
+                    "kat2": {
+                        "type": "string"
+                    },
+                    "kat3": {
+                        "type": "string"
+                    },
+                    "kat4": {
+                        "type": "string"
+                    },
+                    "kat5": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "ObjInf",
+                    "kat1",
+                    "kat2",
+                    "kat3",
+                    "kat4",
+                    "kat5"
+                ]
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "ObjInf": {
+                        "type": "string"
+                    },
+                    "kat1": {
+                        "type": "string"
+                    },
+                    "kat2": {
+                        "type": "string"
+                    },
+                    "kat3": {
+                        "type": "string"
+                    },
+                    "kat4": {
+                        "type": "string"
+                    },
+                    "kat5": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "ObjInf",
+                    "kat1",
+                    "kat2",
+                    "kat3",
+                    "kat4",
+                    "kat5"
+                ]
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "kat1": {
+                        "type": "string"
+                    },
+                    "kat2": {
+                        "type": "string"
+                    },
+                    "kat3": {
+                        "type": "string"
+                    },
+                    "kat4": {
+                        "type": "string"
+                    },
+                    "kat5": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "kat1",
+                    "kat2",
+                    "kat3",
+                    "kat4",
+                    "kat5"
+                ]
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "ObjInf": {
+                        "type": "string"
+                    },
+                    "kat1": {
+                        "type": "string"
+                    },
+                    "kat2": {
+                        "type": "string"
+                    },
+                    "kat3": {
+                        "type": "string"
+                    },
+                    "kat4": {
+                        "type": "string"
+                    },
+                    "kat5": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "ObjInf",
+                    "kat1",
+                    "kat2",
+                    "kat3",
+                    "kat4",
+                    "kat5"
+                ]
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "ObjInf": {
+                        "type": "string"
+                    },
+                    "kat1": {
+                        "type": "string"
+                    },
+                    "kat2": {
+                        "type": "string"
+                    },
+                    "kat3": {
+                        "type": "string"
+                    },
+                    "kat4": {
+                        "type": "string"
+                    },
+                    "kat5": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "ObjInf",
+                    "kat1",
+                    "kat2",
+                    "kat3",
+                    "kat4",
+                    "kat5"
+                ]
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "ObjInf": {
+                        "type": "string"
+                    },
+                    "kat1": {
+                        "type": "string"
+                    },
+                    "kat2": {
+                        "type": "string"
+                    },
+                    "kat3": {
+                        "type": "string"
+                    },
+                    "kat4": {
+                        "type": "string"
+                    },
+                    "kat5": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "ObjInf",
+                    "kat1",
+                    "kat2",
+                    "kat3",
+                    "kat4",
+                    "kat5"
+                ]
+            },
+            {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "ObjInf": {
+                        "type": "string"
+                    },
+                    "kat1": {
+                        "type": "string"
+                    },
+                    "kat2": {
+                        "type": "string"
+                    },
+                    "kat3": {
+                        "type": "string"
+                    },
+                    "kat4": {
+                        "type": "string"
+                    },
+                    "kat5": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "ObjInf",
+                    "kat1",
+                    "kat2",
+                    "kat3",
+                    "kat4",
+                    "kat5"
+                ]
+            }
+        ]
+    },
 });
 
 

@@ -5,7 +5,6 @@ var fs = require('fs')
 exports.getReports = async (req, res, next) => {
     try {
         const report = await Report.find();
-
         return res.status(200).json({
             success: true,
             count: report.length,
@@ -24,8 +23,6 @@ exports.getReportsByFilter = async (req, res, next) => {
     try {
         const report = await Report.find(req.body).exec();
         //const report = await Report.find().$where('this.firstReportTable[0].kat1 != "фыв"').exec();
-
-        console.log("res", report)
         return res.status(200).json({
             success: true,
             count: report.length,
@@ -69,17 +66,22 @@ exports.addReport = async (req, res, next) => {
 
 exports.uploadReports = async (req, res, next) => {
     try {
-        var busboy = new Busboy({ headers: req.headers });
-        busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-         
-          console.log('file ' + filename);
-          file.on('data', function(data) {
-            console.log('file',data.toString('utf8'))
-          });
+        console.log("uploadReports")
+        var busboy =  new Busboy({ headers: req.headers });
+        busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
+            console.log('file ' + filename);
+            file.on('data', function (data) {
+                Report.create(JSON.parse(data.toString('utf8')));
+                console.log('file', data.toString('utf8'));
+            });
         });
         busboy.on('finish', function() {
           res.end("That's all folks!");
         });
+        req.pipe(busboy);
+        return res.status(201).json({
+            success: true,
+        })
     }
     catch (error) {
         console.error(req)

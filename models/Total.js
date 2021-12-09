@@ -1,13 +1,7 @@
 const mongoose = require('mongoose');
 
-const ReportSchema = new mongoose.Schema(
+const TotalSchema = new mongoose.Schema(
   {
-    "id": {
-      "type": "Number"
-    },
-    "VOA": {
-      "type": "String"
-    },
     "period": {
       "type": "Number"
     },
@@ -31,32 +25,7 @@ const ReportSchema = new mongoose.Schema(
         "Mixed"
       ]
     },
-    "tableFourTwo": {
-      "type": [
-        "Mixed"
-      ]
-    },
-    "tableFiveOne": {
-      "type": [
-        "Mixed"
-      ]
-    },
-    "tableFiveTwo": {
-      "type": [
-        "Mixed"
-      ]
-    },
-    "tableFiveThree": {
-      "type": [
-        "Mixed"
-      ]
-    },
     "tableSix": {
-      "type": [
-        "Mixed"
-      ]
-    },
-    "tableSeven": {
       "type": [
         "Mixed"
       ]
@@ -85,6 +54,6 @@ const ReportSchema = new mongoose.Schema(
 );
 
 
-const Report = mongoose.model('Report', ReportSchema);
+const Total = mongoose.model('Total', TotalSchema);
 
-module.exports = Report;
+module.exports = Total;

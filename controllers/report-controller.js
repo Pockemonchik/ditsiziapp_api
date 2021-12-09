@@ -1,6 +1,11 @@
 const Report = require('../models/Report')
 var Busboy = require('busboy')
 var fs = require('fs')
+const PizZip = require("pizzip");
+const Docxtemplater = require("docxtemplater");
+const path = require("path");
+const mime = require('mime');
+const totalController = require("./total-controller")
 
 exports.getReports = async (req, res, next) => {
     try {
@@ -18,6 +23,8 @@ exports.getReports = async (req, res, next) => {
         })
     }
 }
+
+
 
 exports.getReportsByFilter = async (req, res, next) => {
     try {
@@ -64,24 +71,46 @@ exports.addReport = async (req, res, next) => {
     }
 }
 
-exports.uploadReports = async (req, res, next) => {
+exports.uploadReports = (req, res, next) => {
+    var report_data = {}
+    var fileData = null
     try {
         console.log("uploadReports")
-        var busboy =  new Busboy({ headers: req.headers });
+        var busboy = new Busboy({ headers: req.headers });
         busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
             console.log('file ' + filename);
-            file.on('data', function (data) {
-                Report.create(JSON.parse(data.toString('utf8')));
-                console.log('file', data.toString('utf8'));
-            });
+            file.on('data', (data) => {
+                if (fileData === null) {
+                  fileData = data;
+                } else {
+                  fileData = Buffer.concat([fileData, data]);
+                }
+              });
         });
-        busboy.on('finish', function() {
-          res.end("That's all folks!");
+        busboy.on('finish', function () {
+            try {
+                JSON.parse(fileData.toString('utf8')).reports.forEach((item)=> {
+                   Report.find({period:item.period,VOA: item.VOA}).deleteMany().exec()
+                   Report.create(item);
+                   totalController.removeTotal(+item.period)
+                   totalController.addTotal(+item.period)
+                 
+                });
+                report_data = JSON.parse(fileData.toString('utf8')).reports
+            }
+            catch (error) {
+                console.log("err");
+            }
+        
+
+            return res.status(201).json({
+                success: true,
+                report : report_data
+            })
+            
         });
-        req.pipe(busboy);
-        return res.status(201).json({
-            success: true,
-        })
+        return req.pipe(busboy);
+        
     }
     catch (error) {
         console.error(req)

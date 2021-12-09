@@ -4,10 +4,16 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const path = require('path');
-
+const cors = require('cors');
 
 
 const app = express();
+
+var options = {
+  origin: '*'
+};
+app.use(cors(options));
+
 
 //Set Up the Assets Folder
 app.use(express.static(path.join(__dirname, 'public')));

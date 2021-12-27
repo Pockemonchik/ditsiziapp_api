@@ -7,37 +7,58 @@ const Docxtemplater = require("docxtemplater");
 const path = require("path");
 const mime = require('mime');
 
-exports.getReportsTotalValuesDocument = (req, res, next) =>  {
-    // Load the docx file as binary content
-    // const content = fs.readFileSync(
-    //     path.resolve(__dirname, "input.docx"),
-    //     "binary"
-    // );
+exports.getReportsTotalValuesDocument = async (req, res, next) =>  {
 
-    // const zip = new PizZip(content);
+    const totalReport = await Total.find({period : req.query.year }).exec();
+    console.log(totalReport)
+    const content = fs.readFileSync(
+        path.resolve(__dirname, "total_doc_template.docx"),
+        "binary"
+    );
+    const zip = new PizZip(content);
+    const doc = new Docxtemplater(zip, {
+        paragraphLoop: true,
+        linebreaks: true,
+    });
 
-    // const doc = new Docxtemplater(zip, {
-    //     paragraphLoop: true,
-    //     linebreaks: true,
-    // });
+      doc.render({
+        table1_00: totalReport[0].tableOne[0].kat2,
+        table1_01: totalReport[0].tableOne[0].kat3,
+        table1_02: totalReport[0].tableOne[0].total,
+        table1_10: totalReport[0].tableOne[1].kat2,
+        table1_11: totalReport[0].tableOne[1].kat3,
+        table1_12: totalReport[0].tableOne[1].total,
+        table1_20: totalReport[0].tableOne[2].kat2,
+        table1_21: totalReport[0].tableOne[2].kat3,
+        table1_22: totalReport[0].tableOne[2].total,
+        table1_30: totalReport[0].tableOne[3].kat2,
+        table1_31: totalReport[0].tableOne[3].kat3,
+        table1_32: totalReport[0].tableOne[3].total,
+        table1_40: totalReport[0].tableOne[4].kat2,
+        table1_41: totalReport[0].tableOne[4].kat3,
+        table1_42: totalReport[0].tableOne[4].total,
+        table1_50: totalReport[0].tableOne[5].kat2,
+        table1_51: totalReport[0].tableOne[5].kat3,
+        table1_52: totalReport[0].tableOne[5].total,
+        table1_60: totalReport[0].tableOne[6].kat2,
+        table1_61: totalReport[0].tableOne[6].kat3,
+        table1_62: totalReport[0].tableOne[6].total,
+       
 
-    //   doc.render({
-    //     first_name: "John",
-    //     last_name: "Doe",
-    //     phone: "0652455478",
-    //     description: "New Website",
-    // });
+        
+       
+    });
 
-    // const buf = doc.getZip().generate({ type: "nodebuffer" });
+    const buf = doc.getZip().generate({ type: "nodebuffer" });
 
-    // buf is a nodejs buffer, you can either write it to a file or do anything else with it.
-    //fs.writeFileSync(path.resolve(__dirname, "total_doc.docx"), buf);
+    fs.writeFileSync(path.resolve(__dirname, "total_doc.docx"), buf);
+    console.log(req.query.year)
     var filename = path.basename("total_doc.docx");
     var mimetype = mime.lookup("total_doc.docx");
 
     res.setHeader('Content-disposition', 'attachment; filename=' + filename);
     res.setHeader('Content-type', mimetype);
-    const filestream  = fs.createReadStream("total_doc.docx")
+    const filestream  = fs.createReadStream(path.resolve(__dirname, "total_doc.docx"))
     filestream.pipe(res)
 }
 

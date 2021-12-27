@@ -32,5 +32,20 @@
         "passport-local": "^1.0.0",
         "pizzip": "^3.1.1"
     },
-    "bundleDependencies": []
+    "bundleDependencies": [
+        "bcryptjs",
+        "busboy",
+        "cors",
+        "docxtemplater",
+        "dotenv",
+        "ejs",
+        "express",
+        "express-ejs-layouts",
+        "express-session",
+        "mongoose",
+        "passport",
+        "passport-local",
+        "pizzip"
+        
+    ]
 }

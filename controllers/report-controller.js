@@ -89,11 +89,12 @@ exports.uploadReports = (req, res, next) => {
         });
         busboy.on('finish', function () {
             try {
-                JSON.parse(fileData.toString('utf8')).reports.forEach((item)=> {
-                   Report.find({period:item.period,VOA: item.VOA}).deleteMany().exec()
-                   Report.create(item);
-                   totalController.removeTotal(+item.period)
-                   totalController.addTotal(+item.period)
+                JSON.parse(fileData.toString('utf8')).reports.forEach(async (item)=> {
+                   await Report.find({period:item.period,VOA: item.VOA}).deleteMany().exec()
+                   await Report.create(item);
+                   await console.log("refresh total ", item.period)
+                   await totalController.removeTotal(+item.period)
+                   await totalController.addTotal(+item.period)
                  
                 });
                 report_data = JSON.parse(fileData.toString('utf8')).reports

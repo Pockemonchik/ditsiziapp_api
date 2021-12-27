@@ -9,5 +9,4 @@ npm-debug.log
 .DS_Store
 
 # Files
-config/keys.js
 Mongo Express Node Template.postman_collection.json
